@@ -34,12 +34,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerAdapter.ViewHolder holder, int position) {
+
         marvel m = data.get(position);
-        holder.textView.setText("Name " + m.getString());
-        holder.textView.setOnClickListener(new View.OnClickListener() {
+        holder.textView1.setText("Name: " + m.getStr());
+        holder.textView2.setText("YEAR: " + m.getYear());
+        holder.textView3.setText("Rating: " + m.getRating());
+
+        holder.textView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "clicked on: " + data.get(position).getString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "clicked on: " + data.get(position).getStr(), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -51,17 +55,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
-        TextView textView;
+        TextView textView1, textView2, textView3;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            textView = itemView.findViewById(R.id.tv_rv_Marvel);
+            textView1 = itemView.findViewById(R.id.tv_rv_Marvel);
+            textView2 = itemView.findViewById(R.id.tv_rv_year);
+            textView3 = itemView.findViewById(R.id.tv_rv_rating);
             itemView.setOnLongClickListener(this);
         }
 
         @Override
         public boolean onLongClick(View v) {
             int position = getAdapterPosition();
-            Toast.makeText(itemView.getContext(), "DELETED " + data.get(position).getString(), Toast.LENGTH_LONG).show();
+            Toast.makeText(itemView.getContext(), "DELETED " + data.get(position).getStr(), Toast.LENGTH_LONG).show();
             data.remove(position);
             notifyItemRemoved(position);
             return true;
